@@ -19,11 +19,11 @@ create table USER_ACCOUNT(
      Email varchar( 254 ) not null unique,
      FirstName varchar( 50 ) not null,
      LastName varchar( 50 ) not null,
-     Phone, --- DEFINE TYPE
-     StreetAddress varchar( 255 ), -- 30
+     Phone varchar( 50 ),
+     StreetAddress varchar( 255 ),
      City varchar( 255 ),
-     State varchar( 255 ), --- DEFINE TYPE
-     Zip, --- DEFINE TYPE
+     State varchar( 255 ),
+     Zip varchar( 50 ),
      Salt char( 10 ) not null,
      Hash char( 40 ) not null
 );
@@ -45,7 +45,7 @@ create table PERSON(
 create table SUBSCRIPTION_TYPE(
      id int unsigned primary key auto_increment,
      Name varchar( 255 ) not null unique,
-     Screens, --- DEFINE TYPE
+     Screens tinyint unsigned default 0,
      Price decimal( 7, 2 ) not null,
      Description varchar( 255 ) not null
 );
@@ -61,7 +61,7 @@ create table PAYMENT_METHOD(
 create table INVOICE(
      id int unsigned primary key auto_increment,
      InvoiceID int unsigned not null unique,
-     ServiceStart, --- DEFINE TYPE
+     ServiceStart timestamp not null default current_timestamp,
      AcctID int unsigned not null,
      SubID int unsigned not null,
      PaymentID int unsigned not null,
@@ -75,14 +75,14 @@ create table MOVIE(
      id int unsigned primary key auto_increment,
      Name varchar( 255 ) not null,
      YearReleased int unsigned not null default 0,
-     Runtime, --- DEFINE TYPE
+     Runtime time not null,
      Description varchar( 255 ) not null,
      unique( Name, YearReleased )
 );
 
 create table GENRE(
      id int unsigned primary key auto_increment,
-     Genre not null unique --- DEFINE TYPE
+     Genre varchar( 255 ) not null unique
 );
 create table TYPE_OF(
      MovieID int unsigned not null,
@@ -109,7 +109,7 @@ create table ACTS_IN_MOV(
 create table VIEWS_MOVIE(
      MovieID int unsigned not null,
      ProfileID int unsigned not null,
-     PercentComplete, --- DEFINE TYPE
+     PercentComplete decimal( 5, 2 ) not null default 0,
      primary key( MovieID, PersonID ),
      foreign key( MovieID ) references MOVIE( id ) on update cascade on delete cascade, -- VIEWS (MOV)
      foreign key( ProfileID ) references PROFILE( id ) on update cascade on delete cascade -- VIEWS (MOV)
@@ -134,7 +134,7 @@ create table EPISODE(
      id int unsigned primary key auto_increment,
      Description varchar( 255 ) not null,
      Number tinyint unsigned not null,
-     Runtime, --- DEFINE TYPE
+     Runtime time not null,
      Name varchar( 255 ) not null,
      SeasonID int unsigned not null,
      unique( SeasonID, Number ),
@@ -158,7 +158,7 @@ create table ACTS_IN_EP(
 create table VIEWS_EP(
      EpisodeID int unsigned not null,
      ProfileID int unsigned not null,
-     PercentComplete, --- DEFINE TYPE
+     PercentComplete decimal( 5, 2 ) not null default 0,
      primary key( EpisodeID, PersonID ),
      foreign key( EpisodeID ) references EPISODE( id ) on update cascade on delete cascade, -- VIEWS (EP)
      foreign key( ProfileID ) references PROFILE( id ) on update cascade on delete cascade -- VIEWS (EP)
