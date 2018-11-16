@@ -60,7 +60,7 @@ create table PAYMENT_METHOD(
 );
 create table INVOICE(
      id int unsigned primary key auto_increment,
-     InvoiceID int unsigned not null unique,
+     InvoiceID varchar( 255 ) not null unique,
      ServiceStart timestamp not null default current_timestamp,
      AcctID int unsigned not null,
      SubID int unsigned not null,
