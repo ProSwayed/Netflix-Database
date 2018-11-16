@@ -22,4 +22,21 @@ insert into SUBSCRIPTION_TYPE values ( 2, "Limited (4) Plan", 2, 6.99, "Max 4 pe
 insert into SUBSCRIPTION_TYPE values ( 3, "Unlimted (2) Plan", 2, 8.99, "Max 2 people allowed online at a time. Anyone else will be kicked off. Unlimited time allowed to be watched a month" );
 insert into SUBSCRIPTION_TYPE values ( 4, "Unlimited Plan", 2, 12.99, "Unlimited amount of people allowed on at any given time. Unlimited time allowed oto be watched a month" );
 
-insert into PAYMENT_METHOD values ( 1, 
+insert into PAYMENT_METHOD values ( 1, "8901-7651-8876-2106", 992, '2021-03-31', 1 );
+insert into PAYMENT_METHOD values ( 2, "7316-9801-7821-2781", 471, '2024-12-31', 2 );
+insert into PAYMENT_METHOD values ( 3, "1021-3452-9922-5562", 032, '2022-05-31', 3 );
+insert into PAYMENT_METHOD values ( 4, "0421-4301-0212-8901", 874, '2021-11-31', 4 );
+insert into PAYMENT_METHOD values ( 5, "5764-0072-3921-7721", 213, '2020-09-31', 5 );
+insert into PAYMENT_METHOD values ( 6, "0821-9908-0476-8321", 213, '2027-04-31', 1 );
+
+insert into INVOICE values ( 1, 9920, null, 1, 2, 6 );
+insert into INVOICE values ( 2, 8276, null, 1, 2, 2 );
+insert into INVOICE values ( 3, 0341, null, 1, 2, 3 );
+insert into INVOICE values ( 4, 0789, null, 1, 2, 4 );
+insert into INVOICE values ( 5, 9978, null, 1, 2, 5 );
+
+insert into MOVIE values ( 1, "The lost job", 2017, '001:52:32', "One night, a man lost everything, trying to regain his things that were taken from him." );
+insert into MOVIE values ( 2, "The young duckling", 2014, '001:21:42', "The youngest duck goes on the adventure of his life, hoping to find happiness" );
+insert into MOVIE values ( 3, "Lucky midnight", 1998, '001:43:07', "A young girl becomes the luckiest person alives, trying to decide what she wants to do while she has all the luck in the world" );
+insert into MOVIE values ( 4, "John Smith", 2001, '002:07:31', "Lost in time, john smith tries to get back home" );
+
