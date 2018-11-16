@@ -122,6 +122,7 @@ create table TV_SHOW(
      Description varchar( 255 ) not null,
      unique( Name, YearReleased )
 );
+/*
 create table SEASON(
      id int unsigned primary key auto_increment,
      Name varchar( 255 ) not null,
@@ -163,3 +164,4 @@ create table VIEWS_EP(
      foreign key( EpisodeID ) references EPISODE( id ) on update cascade on delete cascade, -- VIEWS (EP)
      foreign key( ProfileID ) references PROFILE( id ) on update cascade on delete cascade -- VIEWS (EP)
 );
+*/
