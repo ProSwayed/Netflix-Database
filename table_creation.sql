@@ -76,7 +76,7 @@ create table MOVIE(
      Name varchar( 255 ) not null,
      YearReleased int unsigned not null default 0,
      Runtime time not null default '000:00:00',
-     Description varchar( 255 ) not null,
+     Description varchar( 1000 ) not null,
      unique( Name, YearReleased )
 );
 
@@ -119,7 +119,7 @@ create table TV_SHOW(
      id int unsigned primary key auto_increment.
      Name varchar( 255 ) not null,
      YearReleased int unsigned not null default 0,
-     Description varchar( 255 ) not null,
+     Description varchar( 1000 ) not null,
      unique( Name, YearReleased )
 );
 /*
