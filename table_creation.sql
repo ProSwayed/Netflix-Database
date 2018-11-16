@@ -10,9 +10,9 @@
           DIRECTED_BY
 */
 
-drop database if exists netflix;
-create database netflix;
-use netflix;
+drop database if exists my_defalcot2_netflix;
+create database my_defalcot2_netflix;
+use my_defalcot2_netflix;
 
 create table USER_ACCOUNT(
      id int unsigned primary key auto_increment,
@@ -38,7 +38,7 @@ create table PROFILE(
 create table PERSON(
      id int unsigned primary key auto_increment,
      FirstName varchar( 25 ) not null,
-     LastName varchar( 25 ) not null
+     LastName varchar( 25 ) not null,
      Sex char( 1 )
 );
 
@@ -51,8 +51,8 @@ create table SUBSCRIPTION_TYPE(
 );
 create table PAYMENT_METHOD(
      id int unsigned primary key auto_increment,
-     CreditCardNumber varchar( 255 ) unsigned not null,
-     CVV smallint unsigned not null,
+     CreditCardNumber varchar( 255 ) not null,
+     CVV varchar( 3 ) not null,
      ExpirationDate date not null,
      AcctID int unsigned not null,
      unique( AcctID, CreditCardNumber ),
@@ -110,13 +110,13 @@ create table VIEWS_MOVIE(
      MovieID int unsigned not null,
      ProfileID int unsigned not null,
      PercentComplete decimal( 5, 2 ) not null default 0,
-     primary key( MovieID, PersonID ),
+     primary key( MovieID, ProfileID ),
      foreign key( MovieID ) references MOVIE( id ) on update cascade on delete cascade, -- VIEWS (MOV)
      foreign key( ProfileID ) references PROFILE( id ) on update cascade on delete cascade -- VIEWS (MOV)
 );
 
 create table TV_SHOW(
-     id int unsigned primary key auto_increment.
+     id int unsigned primary key auto_increment,
      Name varchar( 255 ) not null,
      YearReleased int unsigned not null default 0,
      Description varchar( 1000 ) not null,
