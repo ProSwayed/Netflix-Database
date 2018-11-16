@@ -40,3 +40,37 @@ insert into MOVIE values ( 2, "The young duckling", 2014, '001:21:42', "The youn
 insert into MOVIE values ( 3, "Lucky midnight", 1998, '001:43:07', "A young girl becomes the luckiest person alives, trying to decide what she wants to do while she has all the luck in the world" );
 insert into MOVIE values ( 4, "John Smith", 2001, '002:07:31', "Lost in time, john smith tries to get back home" );
 
+insert into GENRE values ( 1, "Sci-Fi" );
+insert into GENRE values ( 2, "Horror" );
+insert into GENRE values ( 3, "Adventure" );
+insert into GENRE values ( 4, "Thriller" );
+insert into GENRE values ( 5, "Romantic" );
+insert into GENRE values ( 6, "Comedy" );
+insert into GENRE values ( 7, "Action" );
+
+insert into TYPE_OF values ( 1, 3 );
+insert into TYPE_OF values ( 2, 6 );
+insert into TYPE_OF values ( 3, 1 );
+insert into TYPE_OF values ( 4, 7 );
+
+insert into DIRECTED_BY_MOV values ( 1, 5 );
+insert into DIRECTED_BY_MOV values ( 2, 2 );
+insert into DIRECTED_BY_MOV values ( 3, 2 );
+insert into DIRECTED_BY_MOV values ( 4, 5 );
+
+insert into ACTS_IN_MOV values ( 1, 3 );
+insert into ACTS_IN_MOV values ( 1, 4 );
+insert into ACTS_IN_MOV values ( 2, 1 );
+insert into ACTS_IN_MOV values ( 3, 6 );
+insert into ACTS_IN_MOV values ( 4, 2 );
+insert into ACTS_IN_MOV values ( 4, 4 );
+
+insert into VIEWS_MOVIE values ( 1, 2, 20.00 );
+insert into VIEWS_MOVIE values ( 2, 1, 43.00 );
+insert into VIEWS_MOVIE values ( 3, 3, 29.00 );
+insert into VIEWS_MOVIE values ( 4, 3, 100.00 );
+insert into VIEWS_MOVIE values ( 3, 4, 57.00 );
+
+insert into TV_SHOW values ( 1, "Young King", 2016, "The once and young king now travels the world looking for a new family." );
+insert into TV_SHOW values ( 2, "Alphabet", 2016, "Children work to sing the alphabet." );
+insert into TV_SHOW values ( 3, "Hide n Seek", 2016, "The lokinstons play hide n seek." );
