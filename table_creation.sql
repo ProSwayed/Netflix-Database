@@ -47,11 +47,11 @@ create table SUBSCRIPTION_TYPE(
      Name varchar( 255 ) not null unique,
      Screens tinyint unsigned default 0,
      Price decimal( 7, 2 ) not null,
-     Description varchar( 255 ) not null
+     Description varchar( 1000 ) not null
 );
 create table PAYMENT_METHOD(
      id int unsigned primary key auto_increment,
-     CreditCardNumber bigint unsigned not null,
+     CreditCardNumber varchar( 255 ) unsigned not null,
      CVV smallint unsigned not null,
      ExpirationDate date not null,
      AcctID int unsigned not null,
