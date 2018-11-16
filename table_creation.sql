@@ -75,7 +75,7 @@ create table MOVIE(
      id int unsigned primary key auto_increment,
      Name varchar( 255 ) not null,
      YearReleased int unsigned not null default 0,
-     Runtime time not null,
+     Runtime time not null default '000:00:00',
      Description varchar( 255 ) not null,
      unique( Name, YearReleased )
 );
@@ -134,7 +134,7 @@ create table EPISODE(
      id int unsigned primary key auto_increment,
      Description varchar( 255 ) not null,
      Number tinyint unsigned not null,
-     Runtime time not null,
+     Runtime time not null default '000:00:00',
      Name varchar( 255 ) not null,
      SeasonID int unsigned not null,
      unique( SeasonID, Number ),
