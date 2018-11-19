@@ -10,9 +10,9 @@
           DIRECTED_BY
 */
 
-drop database if exists my_defalcot2_netflix;
-create database my_defalcot2_netflix;
-use my_defalcot2_netflix;
+drop database if exists my_defalcot2_netflix; -- Change defalcot2 to your winthrop id username
+create database my_defalcot2_netflix; -- Change defalcot2 to your winthrop id username
+use my_defalcot2_netflix; -- Change defalcot2 to your winthrop id username
 
 create table USER_ACCOUNT(
      id int unsigned primary key auto_increment,
