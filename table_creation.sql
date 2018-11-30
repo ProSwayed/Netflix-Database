@@ -21,9 +21,9 @@ create table USER_ACCOUNT(
      LastName varchar( 50 ) not null,
      Phone varchar( 50 ),
      StreetAddress varchar( 255 ),
-     City varchar( 255 ),
-     State varchar( 255 ),
-     Zip varchar( 50 ),
+     City varchar( 100 ),
+     State varchar( 100 ),
+     Zip varchar( 15 ),
      Salt char( 10 ) not null,
      Hash char( 40 ) not null
 );
@@ -37,21 +37,21 @@ create table PROFILE(
 
 create table PERSON(
      id int unsigned primary key auto_increment,
-     FirstName varchar( 25 ) not null,
-     LastName varchar( 25 ) not null,
+     FirstName varchar( 50 ) not null,
+     LastName varchar( 50 ) not null,
      Sex char( 1 )
 );
 
 create table SUBSCRIPTION_TYPE(
      id int unsigned primary key auto_increment,
-     Name varchar( 255 ) not null unique,
+     Name varchar( 100 ) not null unique,
      Screens tinyint unsigned default 0,
      Price decimal( 7, 2 ) not null,
      Description varchar( 1000 ) not null
 );
 create table PAYMENT_METHOD(
      id int unsigned primary key auto_increment,
-     CreditCardNumber varchar( 255 ) not null,
+     CreditCardNumber varchar( 25 ) not null,
      CVV varchar( 3 ) not null,
      ExpirationDate date not null,
      AcctID int unsigned not null,
@@ -60,7 +60,7 @@ create table PAYMENT_METHOD(
 );
 create table INVOICE(
      id int unsigned primary key auto_increment,
-     InvoiceID varchar( 255 ) not null unique,
+     InvoiceID varchar( 10 ) not null unique,
      ServiceStart timestamp not null default current_timestamp,
      AcctID int unsigned not null,
      SubID int unsigned not null,

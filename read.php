@@ -1,6 +1,11 @@
 <?php 
 include( 'connect.php' );
-$results = mysqli_query( $database, "select * from USER_ACCOUNT" );
+
+if( $_GET ) {
+	$type = $_GET['type'];
+
+	$results = mysqli_query( $database, "select * from $type" );
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,8 +39,8 @@ $results = mysqli_query( $database, "select * from USER_ACCOUNT" );
 					<td><?php echo $row['City']; ?></td>
 					<td><?php echo $row['State']; ?></td>
 					<td><?php echo $row['Zip']; ?></td>
-					<td><a href="update.php?id=<?php echo $row['id']; ?>">Edit</a></td>
-					<td><a href="delete.php?id=<?php echo $row['id']; ?>">Delete</a></td>
+					<td><a href="update.php?id=<?php echo $row['id']; ?>&type=$type">Edit</a></td>
+					<td><a href="delete.php?id=<?php echo $row['id']; ?>&type=$type">Delete</a></td>
 				</tr>
 			<?php } ?>
 		</table>
