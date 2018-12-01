@@ -1,19 +1,43 @@
 <?php
+require_once( 'connect.php' );
+
 if( $_POST ) {
-	include( 'connect.php' );
+	$sql_code = "";
+	$types = '';
 
-	$fname = $_POST['fname'];
-	$lname = $_POST['lname'];
-	$email = $_POST['email'];
-	$phone = $_POST['phone'];
-	$address = $_POST['address'];
-	$city = $_POST['city'];
-	$state = $_POST['state'];
-	$zip = $_POST['zip'];
-	$password = $_POST['password'];
+	foreach( $columns as $col ) {
+		if( $col != 'id' && $col != 'Hash' ) {
+			$sql_code .= "?, ";
+			$types .= gettype( $_POST[$col] )[0];
+			$arrVals[] = &$_POST[$col];
+		}
+		else if( $col == 'Hash' ) {
+			$sql_code .= "SHA1( ? ), ";
+			$types .= gettype( $_POST['Salt'] )[0];
+			$arrVals[] = &$_POST['Salt'];
+		}
+		else if( $col == 'id' )
+			$sql_code .= "NULL, ";
+	}
 
-	$sql = "insert into USER_ACCOUNT values ( NULL, '$email', '$fname', '$lname', '$phone', '$address', '$city', '$state', '$zip', '$password', SHA1( '$password' ) )";
-	test_sqlCode( $database, $sql );
+	$sql_code = "insert into $type_val values ( " . substr( $sql_code, 0, -2 ) . " )";
+	
+	$stmt = $database->stmt_init();
+	$stmt->prepare( $sql_code );
+	array_unshift( $arrVals, $types );
+	call_user_func_array( array( $stmt, 'bind_param' ), $arrVals );
+	$stmt->execute();
+}
+
+if( $_REQUEST ) {
+	$type_val = $_REQUEST['type_val'];
+
+	$stmtcol = $database->stmt_init();
+	$stmtcol->prepare( "show columns from $type_val" );
+	$stmtcol->execute();
+	$colresults = $stmtcol->get_result();
+	while( $col = $colresults->fetch_array() )
+		$columns[] = $col['Field'];
 }
 ?>
 
@@ -23,49 +47,20 @@ if( $_POST ) {
 		<title>CRUD: Create, Read, Update, Delete</title>
 	</head>
 	<body>
-		<h1>Create User Account</h1>
+		<h1>Create <?php echo to_lower( remove_underscore( $type_val ) ); ?></h1>
 		<form method="post" action="<?php echo htmlspecialchars( $_SERVER["PHP_SELF"] );?>">
+			<input type="hidden" name="type_val" value="<?php echo $type_val; ?>">
+			<?php foreach( $columns as $col ) { if( field_should_be_visible( $col ) ) { ?>
+				<div class="input-group">
+					<label><?php echo add_space_before_capital( $col ); ?></label>
+					<input type="text" name="<?php echo $col; ?>" value="">
+				</div>
+			<?php } } ?>
 			<div class="input-group">
-				<label>First Name</label>
-				<input type="text" name="fname" value="">
-			</div>
-			<div class="input-group">
-				<label>Last Name</label>
-				<input type="text" name="lname" value="">
-			</div>
-			<div class="input-group">
-				<label>Email</label>
-				<input type="text" name="email" value="">
-			</div>
-			<div class="input-group">
-				<label>Phone Number</label>
-				<input type="text" name="phone" value="">
-			</div>
-			<div class="input-group">
-				<label>Street Address</label>
-				<input type="text" name="address" value="">
-			</div>
-			<div class="input-group">
-				<label>City</label>
-				<input type="text" name="city" value="">
-			</div>
-			<div class="input-group">
-				<label>State</label>
-				<input type="text" name="state" value="">
-			</div>
-			<div class="input-group">
-				<label>Zip</label>
-				<input type="text" name="zip" value="">
-			</div>
-			<div class="input-group">
-				<label>Password</label>
-				<input type="text" name="password" value="">
-			</div>
-			<div class="input-group">
-				<button class="btn" type="submit" name="save">Save</button>
+				<button class="btn" type="submit" name="save">Submit</button>
 			</div>
 		</form>
-		<a href="read.php">Read USER ACCOUNT</a>
+		<a href="read.php?type_val=<?php echo $type_val; ?>">Read <?php echo to_lower( remove_underscore( $type_val ) ); ?></a>
 		<br />
 		<a href="index.php">Go Home</a>
 	</body>
