@@ -46,6 +46,8 @@ if( $_POST ) {
 	array_unshift( $arrVals, $types );
 	call_user_func_array( array( $stmt, 'bind_param' ), $arrVals );
 	$stmt->execute();
+
+	header( "Refresh:0; url=update.php?id_val=$id_val&type_val=$type_val" );
 }
 ?>
 
