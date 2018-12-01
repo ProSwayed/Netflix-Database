@@ -2,12 +2,16 @@
 	$servername = "deltona.birdnest.org";
 	$username = "my.USERNAME";
 	$password = "PASSWORD";
-	$databasename = "my_USERNAME_netflix";
+	$databasename = "my_USERNAME_netflix"; // Can use (show databases) then its under field (Database)
 
 	function field_should_be_visible( $field ) {
 		if( $field == 'id' || $field == 'Hash' )
 			return false;
 		return true;
+	}
+
+	function select_database( $db, $name ) {
+		$db->select_db( $name );
 	}
 
 	function remove_underscore( $string ) {
