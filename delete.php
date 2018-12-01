@@ -1,6 +1,15 @@
 <?php 
 require_once( 'connect.php' );
 
+$database_val = $databasename;
+
+if( $_REQUEST ) {
+	if( isSet( $_REQUEST['database_val'] ) ) {
+		$database_val = $_REQUEST['database_val'];
+		select_database( $database, $database_val );
+	}
+}
+
 if( $_GET ) {
 	$id_val = $_GET['id_val'];
 	$type_val = $_GET['type_val'];
@@ -11,6 +20,6 @@ if( $_GET ) {
 	$stmt->bind_param( 'i', $id_val );
 	$stmt->execute();
 
-	header( "location: read.php?type_val=$type_val" );
+	header( "location: read.php?type_val=$type_val&database_val=$database_val" );
 }
 ?>
