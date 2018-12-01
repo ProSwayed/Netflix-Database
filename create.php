@@ -1,8 +1,14 @@
 <?php
 require_once( 'connect.php' );
 
+$database_val = $databasename;
+
 if( $_REQUEST ) {
 	$type_val = $_REQUEST['type_val'];
+	if( isSet( $_REQUEST['database_val'] ) ) {
+		$database_val = $_REQUEST['database_val'];
+		select_database( $database, $database_val );
+	}
 
 	$stmtcol = $database->stmt_init();
 	$stmtcol->prepare( "show columns from $type_val" );
@@ -50,6 +56,7 @@ if( $_POST ) {
 		<h1>Create <?php echo to_lower( remove_underscore( $type_val ) ); ?></h1>
 		<form method="post" action="<?php echo htmlspecialchars( $_SERVER["PHP_SELF"] );?>">
 			<input type="hidden" name="type_val" value="<?php echo $type_val; ?>">
+			<input type="hidden" name="database_val" value="<?php echo $database_val; ?>">
 			<?php foreach( $columns as $col ) { if( field_should_be_visible( $col ) ) { ?>
 				<div class="input-group">
 					<label><?php echo add_space_before_capital( $col ); ?></label>
@@ -60,8 +67,8 @@ if( $_POST ) {
 				<button class="btn" type="submit" name="save">Submit</button>
 			</div>
 		</form>
-		<a href="read.php?type_val=<?php echo $type_val; ?>">Read <?php echo to_lower( remove_underscore( $type_val ) ); ?></a>
+		<a href="read.php?type_val=<?php echo $type_val; ?>&database_val=<?php echo $database_val; ?>">Read <?php echo to_lower( remove_underscore( $type_val ) ); ?></a>
 		<br />
-		<a href="index.php">Go Home</a>
+		<a href="index.php?database_val=<?php echo $database_val; ?>">Go Home</a>
 	</body>
 </html>
