@@ -13,9 +13,9 @@ $results = $stmt->get_result();
 		<title>CRUD: Create, Read, Update, Delete</title>
 	</head>
 	<body>
-		<?php while( $row = $results->fetch_array() ) { ?>
-			<a href="index.php?database=<?php echo $row[0] ?>"><?php echo $row[0]; ?></a>
+		<?php while( $row = $results->fetch_array() ) { if( $row[0] != 'information_schema' ) { ?>
+			<a href="index.php?database_val=<?php echo $row[0] ?>"><?php echo $row[0]; ?></a>
 			<br />
-		<?php } ?>
+		<?php } } ?>
 	</body>
 </html>
