@@ -4,22 +4,29 @@
 	$password = "PASSWORD";
 	$databasename = "my_USERNAME_netflix";
 
-	function test_sqlCode( $db, $code ) {
-		if( $db->query( $code ) === TRUE )
-		    echo "Code run successfully: " . $code . "<br>";
-		else
-		    echo "Code run unsuccessfully: "  . $code . " | Error: " . $db->error . "<br>";
+	function field_should_be_visible( $field ) {
+		if( $field == 'id' || $field == 'Hash' )
+			return false;
+		return true;
+	}
+
+	function remove_underscore( $string ) {
+		return str_replace( "_", " ", $string );
+	}
+
+	function add_space_before_capital( $string ) {
+		return preg_replace( '/(?<!\ )[A-Z]/', ' $0', $string );
+	}
+
+	function to_lower( $string ) {
+		return ucwords( strToLower( $string ) );
+	}
+
+	function reduce_escape_strings( $db, $string ) {
+		return mysqli_real_escape_string( $db, $string );
 	}
 
 	$database = new mysqli( $servername, $username, $password, $databasename );
 	if( $database->connect_error )
 		die( "Connection failed: " . $database->connect_error );
-
-	//$sql_dropdb = "drop database if exists " . $databasename;
-	//$sql_create = "create database " . $databasename;
-	//$sql_use = "use " . $databasename;
-
-	//test_sqlCode( $database, $sql_dropdb );
-	//test_sqlCode( $database, $sql_create );
-	//test_sqlCode( $database, $sql_use );
 ?>
