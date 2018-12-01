@@ -1,10 +1,21 @@
 <?php 
-include( 'connect.php' );
+require_once( 'connect.php' );
 
 if( $_GET ) {
-	$type = $_GET['type'];
+	$type_val = $_GET['type_val'];
 
-	$results = mysqli_query( $database, "select * from $type" );
+	$stmt = $database->stmt_init();
+	$stmt->prepare( "select * from $type_val" );
+	$stmt->execute();
+	$results = $stmt->get_result();
+
+	$stmtcol = $database->stmt_init();
+	$stmtcol->prepare( "show columns from $type_val" );
+	$stmtcol->execute();
+	$colresults = $stmtcol->get_result();
+
+	while( $col = $colresults->fetch_array() )
+		$columns[] = $col['Field'];
 }
 ?>
 
@@ -14,33 +25,24 @@ if( $_GET ) {
 		<title>CRUD: Create, Read, Update, Delete</title>
 	</head>
 	<body>
-		<a href="create.php">Create User Account</a>
+		<a href="create.php?type_val=<?php echo $type_val; ?>">Create <?php echo to_lower( remove_underscore( $type_val ) ); ?></a>
 		<table>
 			<thead>
 				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-					<th>Phone Number</th>
-					<th>Street Address</th>
-					<th>City</th>
-					<th>State</th>
-					<th>Zip</th>
-					<th colspan="2">Action</th>
+					<?php foreach( $columns as $col ) { if( field_should_be_visible( $col ) && $col != 'Salt' ) { ?>
+						<td><?php echo add_space_before_capital( $col ); ?></td>
+					<?php } } ?>
+					<th colspan="3">Action</th>
 				</tr>
 			</thead>
-			<?php while( $row = mysqli_fetch_array( $results ) ) { ?>
+			<?php while( $row = $results->fetch_array() ) { ?>
 				<tr>
-					<td><?php echo $row['FirstName']; ?></td>
-					<td><?php echo $row['LastName']; ?></td>
-					<td><?php echo $row['Email']; ?></td>
-					<td><?php echo $row['Phone']; ?></td>
-					<td><?php echo $row['StreetAddress']; ?></td>
-					<td><?php echo $row['City']; ?></td>
-					<td><?php echo $row['State']; ?></td>
-					<td><?php echo $row['Zip']; ?></td>
-					<td><a href="update.php?id=<?php echo $row['id']; ?>&type=$type">Edit</a></td>
-					<td><a href="delete.php?id=<?php echo $row['id']; ?>&type=$type">Delete</a></td>
+					<?php foreach( $columns as $col ) { if( field_should_be_visible( $col ) && $col != 'Salt' ) { ?>
+						<td><?php echo $row[$col]; ?></td>
+					<?php } } ?>
+					<td><a href="read_single.php?id_val=<?php echo $row['id']; ?>&type_val=<?php echo $type_val; ?>">Read</a></td>
+					<td><a href="update.php?id_val=<?php echo $row['id']; ?>&type_val=<?php echo $type_val; ?>">Edit</a></td>
+					<td><a href="delete.php?id_val=<?php echo $row['id']; ?>&type_val=<?php echo $type_val; ?>">Delete</a></td>
 				</tr>
 			<?php } ?>
 		</table>
