@@ -1,6 +1,17 @@
 <?php
 require_once( 'connect.php' );
 
+if( $_REQUEST ) {
+	$type_val = $_REQUEST['type_val'];
+
+	$stmtcol = $database->stmt_init();
+	$stmtcol->prepare( "show columns from $type_val" );
+	$stmtcol->execute();
+	$colresults = $stmtcol->get_result();
+	while( $col = $colresults->fetch_array() )
+		$columns[] = $col['Field'];
+}
+
 if( $_POST ) {
 	$sql_code = "";
 	$types = '';
@@ -27,17 +38,6 @@ if( $_POST ) {
 	array_unshift( $arrVals, $types );
 	call_user_func_array( array( $stmt, 'bind_param' ), $arrVals );
 	$stmt->execute();
-}
-
-if( $_REQUEST ) {
-	$type_val = $_REQUEST['type_val'];
-
-	$stmtcol = $database->stmt_init();
-	$stmtcol->prepare( "show columns from $type_val" );
-	$stmtcol->execute();
-	$colresults = $stmtcol->get_result();
-	while( $col = $colresults->fetch_array() )
-		$columns[] = $col['Field'];
 }
 ?>
 
