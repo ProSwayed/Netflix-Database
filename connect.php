@@ -11,7 +11,7 @@
 	}
 
 	function select_database( $db, $name ) {
-		$db->select_db( $name );
+		$db->select_db( reduce_escape_strings( $db, $name ) );
 	}
 
 	function remove_underscore( $string ) {
