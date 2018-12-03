@@ -4,7 +4,7 @@ require_once( 'connect.php' );
 $database_val = $databasename;
 
 if( $_REQUEST ) {
-	$type_val = $_REQUEST['type_val'];
+	$type_val = reduce_escape_strings( $database, $_REQUEST['type_val'] );
 	if( isSet( $_REQUEST['database_val'] ) ) {
 		$database_val = $_REQUEST['database_val'];
 		select_database( $database, $database_val );
