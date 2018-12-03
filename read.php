@@ -11,7 +11,7 @@ if( $_REQUEST ) {
 }
 
 if( $_GET ) {
-	$type_val = $_GET['type_val'];
+	$type_val = reduce_escape_strings( $database, $_GET['type_val'] );
 
 	$stmt = $database->stmt_init();
 	$stmt->prepare( "select * from $type_val" );
