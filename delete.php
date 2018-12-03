@@ -12,7 +12,7 @@ if( $_REQUEST ) {
 
 if( $_GET ) {
 	$id_val = $_GET['id_val'];
-	$type_val = $_GET['type_val'];
+	$type_val = reduce_escape_strings( $database, $_GET['type_val'] );
 
 	$sql = "delete from $type_val where id=?";
 	$stmt = $database->stmt_init();
